@@ -51,7 +51,7 @@ def lambda_handler(event, context):
     plt.ylabel('Size (bytes)')
     plt.legend()
 
-    # Save the plot locally and upload to S3
+
     plot_file = '/tmp/plot.png'
     plt.savefig(plot_file)
 
