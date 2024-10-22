@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 dynamodb = boto3.resource('dynamodb')
 s3 = boto3.client('s3')
 
+
 def lambda_handler(event, context):
     bucket_name = 'testbucket-weihao'
     table_name = 'S3-object-size-history'
@@ -43,15 +44,22 @@ def lambda_handler(event, context):
     # Find the maximum size from the retrieved bucket sizes
     max_size = max(sizes) if sizes else 0
 
+    # Convert the timestamps to datetime objects for x-axis limits
+    now_dt = datetime.strptime(now_str, '%Y-%m-%d %H:%M:%S')
+    ten_seconds_ago_dt = datetime.strptime(ten_seconds_ago_str, '%Y-%m-%d %H:%M:%S')
+
     # Plot the data
     plt.figure()
     plt.plot(timestamps_dt, sizes, label='Bucket Size Over Time', marker='o')
     plt.axhline(y=max_size, color='r', linestyle='--', label='Max Size in Last 10 Seconds')
+
+    # Set the x-axis limits to the full 10-second range
+    plt.xlim([ten_seconds_ago_dt, now_dt])
     plt.xlabel('Timestamp')
     plt.ylabel('Size (bytes)')
     plt.legend()
 
-
+    # Save the plot locally and upload to S3
     plot_file = '/tmp/plot.png'
     plt.savefig(plot_file)
 

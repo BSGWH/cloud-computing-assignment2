@@ -8,7 +8,7 @@ s3 = boto3.client('s3')
 bucket_name = 'testbucket-weihao'
 
 # The API Gateway URL to trigger the plotting lambda
-plotting_api_url = 'https://qnyneu43h7.execute-api.us-east-1.amazonaws.com/plot'
+plotting_api_url = 'https://bcmjznw3nf.execute-api.us-east-1.amazonaws.com/p'
 
 
 def lambda_handler(event, context):
@@ -17,28 +17,28 @@ def lambda_handler(event, context):
     print("Created 'assignment1.txt' with size 19 bytes")
 
     # Sleep for 1s
-    time.sleep(1)
+    time.sleep(2)
 
     # Step 2: Update object 'assignment1.txt'
     s3.put_object(Bucket=bucket_name, Key='assignment1.txt', Body='Empty Assignment 2222222222')
     print("Updated 'assignment1.txt' with size 28 bytes")
 
     # Sleep for 1s
-    time.sleep(1)
+    time.sleep(2)
 
     # Step 3: Delete object 'assignment1.txt'
     s3.delete_object(Bucket=bucket_name, Key='assignment1.txt')
     print("Deleted 'assignment1.txt'")
 
     # Sleep for 1s
-    time.sleep(1)
+    time.sleep(2)
 
     # Step 4: Create object 'assignment2.txt'
     s3.put_object(Bucket=bucket_name, Key='assignment2.txt', Body='33')
     print("Created 'assignment2.txt' with size 2 bytes")
 
     # Sleep for 1s
-    time.sleep(1)
+    time.sleep(2)
 
     # Step 5: Call the Plotting API
     print("Calling the plotting API...")
